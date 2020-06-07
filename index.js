@@ -4,7 +4,6 @@ const express = require("express");
 const morgan = require("morgan");
 const path = require("path");
 const exphbs = require("express-handlebars");
-const favicon = require("serve-favicon");
 const dotenv = require("dotenv"); dotenv.config();
 const sequelize = require("./config/sequelizeConfig");
 const cookieParser = require("cookie-parser");
@@ -28,7 +27,6 @@ app.engine(
 app.set("view engine", ".hbs");
 
 //Middlewares
-app.use(favicon(path.join(__dirname, "/public/img", "logo.png")));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

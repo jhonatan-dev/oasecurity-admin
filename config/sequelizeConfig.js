@@ -23,9 +23,7 @@ const sequelize = new Sequelize({
         charset: "utf8mb4",
         collate: "utf8mb4_spanish_ci"
     },
-    logging: info => {
-        console.log("\x1b[34m", info, "\x1b[0m");
-    }
+    logging: false
 });
 
 sequelize
