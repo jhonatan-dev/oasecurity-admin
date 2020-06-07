@@ -27,8 +27,9 @@ app.engine(
 );
 app.set("view engine", ".hbs");
 
+console.log(__dirname);
 //Middlewares
-app.use(favicon(path.join(__dirname, "public/img", "logo.png")));
+//app.use(favicon(path.join(__dirname, "public/img", "logo.png")));
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
