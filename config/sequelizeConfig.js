@@ -10,8 +10,8 @@ const sequelize = new Sequelize({
     dialect: "postgres",
     timezone: "-05:00",
     pool: {
-        max: 4,
-        min: 0,
+        max: 2,
+        min: 1,
         acquire: 30000,
         idle: 10000
     },
