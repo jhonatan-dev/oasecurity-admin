@@ -20,30 +20,37 @@
                 error.remove();
             }
         });
-        /*
         $.validator.addMethod(
-            "emailRegistrado",
+            "dniRegistradoRENIEC",
             function (value, element, valorRequerido) {
-                console.log("value: ", valorRequerido);
-                console.log("valorRequerido: ", valorRequerido);
-                return false;
-            },
-            "El correo electrónico ingresado ya ha sido registrado."
-        );
-                        axios.get('/validacion/interna', {
-                    params: {
-                        email: value
+                let valido = false;
+                $.ajax({
+                    url: '/validacion/externa',
+                    method: "GET",
+                    async: false,
+                    data: { dni: value },
+                    success: function (response) {
+                        if (response.valido) {
+                            $("#formRegistro #nombres").val(response.informacion.nombres)
+                            $("#formRegistro #apellidos").val(response.informacion.apellidos)
+                            valido = true;
+                        } else {
+                            $("#formRegistro #nombres").val("")
+                            $("#formRegistro #apellidos").val("")
+                            valido = false;
+                        }
+                    },
+                    error: function (error) {
+                        $("#formRegistro #nombres").val("")
+                        $("#formRegistro #apellidos").val("")
+                        valido = false;
                     }
                 })
-                    .then(function (response) {
-                        console.log(response.data);
-                        return response.data.valido;
-                    })
-                    .catch(function (error) {
-                        console.log("error:",error);
-                        return false;
-                    })
-        */
+                return valido
+            },
+            "El dni no es válido."
+        );
+
         $("#formRegistro").validate({
             rules: {
                 dni: {
@@ -51,7 +58,8 @@
                     minlength: 8,
                     maxlength: 8,
                     digits: true,
-                    remote: "/validacion/interna"
+                    remote: "/validacion/interna",
+                    dniRegistradoRENIEC: true
                 },
                 nombres: {
                     required: true,

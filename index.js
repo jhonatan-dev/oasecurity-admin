@@ -36,11 +36,6 @@ app.use(require("./routes/index"));
 app.use("/validacion", require("./routes/validacionRoute"));
 app.use("/admin", require("./routes/adminRoute"));
 
-app.use("/robots.txt", function (req, res) {
-    res.type("text/plain");
-    res.send("User-agent: *\nDisallow: /js/\nDisallow: /css/\nDisallow: /img/");
-});
-
 //Carpeta Pública donde estarán los .css .js .png .jpg
 app.use(express.static(path.join(__dirname, "public")));
 

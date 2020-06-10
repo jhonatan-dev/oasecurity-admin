@@ -9,7 +9,10 @@ router.post("/registro", async (req, res) => {
 });
 
 router.get("/registro", async (req, res) => {
-    res.render("registro");
+    res.render("registro", {
+        tituloVentana : "Registro",
+        scripts : ["form_registro"]
+    });
 });
 
 module.exports = router;

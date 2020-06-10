@@ -4,10 +4,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <title>Parallax Template - Materialize</title>
+    <title>{{tituloVentana}} | OA Security</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
     <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
 </head>
 
 <body>
@@ -20,11 +21,13 @@
     </div>
 
     {{> footer}}
-    <script type="text/javascript" src="/js/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/materialize.min.js"></script>
-    <script type="text/javascript" src="/js/jquery.validate.min.js"></script>
-    <script src="/js/axios.min.js"></script>
-    <script src="/js/init.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/materialize.min.js"></script>
+    <script type="text/javascript" src="/js/plugins/jquery.validate.min.js"></script>
+
+    {{#each scripts}}
+    <script src="/js/{{this}}.js"></script>
+    {{/each }}
 </body>
 
 </html>
