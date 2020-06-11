@@ -11,7 +11,8 @@ router.post("/registro", async (req, res) => {
 router.get("/registro", async (req, res) => {
     res.render("registro", {
         tituloVentana : "Registro",
-        scripts : ["form_registro"]
+        scripts : ["face","form_registro"],
+        face_api : true
     });
 });
 

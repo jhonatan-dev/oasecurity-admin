@@ -24,6 +24,9 @@
     <script type="text/javascript" src="/js/plugins/jquery.min.js"></script>
     <script type="text/javascript" src="/js/plugins/materialize.min.js"></script>
     <script type="text/javascript" src="/js/plugins/jquery.validate.min.js"></script>
+    {{#if face_api }}
+    <script type="text/javascript" src="/js/plugins/face-api.min.js"></script>
+    {{/if}}
 
     {{#each scripts}}
     <script src="/js/{{this}}.js"></script>
