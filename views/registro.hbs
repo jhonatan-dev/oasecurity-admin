@@ -1,14 +1,18 @@
 <div class="row">
-    <div class="progress" id="loader">
-        <div class="indeterminate"></div>
-    </div>
-    <div style="position: relative" class="margin">
-        <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline></video>
-        <canvas id="overlay" />
-    </div>
-</div>
-<div class="row">
-    <form id="formRegistro" class="col s12" action="/admin/registro" method="POST">
+    <form id="formRegistro" class="col s12" action="/admin/registro" method="POST" enctype="multipart/form-data">
+        <div class="row">
+            <div class="progress" id="loader">
+                <div class="indeterminate"></div>
+            </div>
+            <div id="div_camera">
+                <video onloadedmetadata="onPlay(this)" id="inputVideo" autoplay muted playsinline></video>
+                <canvas id="overlay" />
+            </div>
+            <div id="cameraControls"></div>
+        </div>
+        <div id="divfotoRostro" class="row col s12" style="display: none; margin-top: 4px;">
+            <input id="foto_rostro" name="foto_rostro" type="image">
+        </div>
         <div class="row">
             <div class="input-field col s12">
                 <label for="dni">DNI</label>
@@ -16,11 +20,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="input-field col s6">
+            <div class="input-field col s12">
                 <label for="nombres">Nombres</label>
                 <input id="nombres" name="nombres" type="text" placeholder="Nombres" class="validate" readonly>
             </div>
-            <div class="input-field col s6">
+        </div>
+        <div class="row">
+            <div class="input-field col s12">
                 <label for="apellidos">Apellidos</label>
                 <input id="apellidos" type="text" name="apellidos" placeholder="Apellidos" class="validate" readonly>
             </div>

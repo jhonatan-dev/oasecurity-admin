@@ -1,60 +1,38 @@
 nav ul a,
- nav .brand-logo {
-   color: #444;
- }
- 
- p {
-   line-height: 2rem;
- }
- 
- .sidenav-trigger {
-   color: #26a69a;
- }
- 
- .parallax-container {
-   min-height: 380px;
-   line-height: 0;
-   height: auto;
-   color: rgba(255,255,255,.9);
- }
-   .parallax-container .section {
-     width: 100%;
-   }
- 
- @media only screen and (max-width : 992px) {
-   .parallax-container .section {
-     position: absolute;
-     top: 40%;
-   }
-   #index-banner .section {
-     top: 10%;
-   }
- }
- 
- @media only screen and (max-width : 600px) {
-   #index-banner .section {
-     top: 0;
-   }
- }
- 
- .icon-block {
-   padding: 0 15px;
- }
- .icon-block .material-icons {
-   font-size: inherit;
- }
- 
- footer.page-footer {
-   margin: 0;
- }
- 
- .margin {
-  left :0;
-  top :0;
+nav .brand-logo {
+  color: #444;
 }
 
- #overlay, .overlay {
+p {
+  line-height: 2rem;
+}
+
+.sidenav-trigger {
+  color: #26a69a;
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+
+#div_camera {
+  position: relative;
+}
+
+#overlay {
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+a {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  margin-right: 4px;
+  margin-left: 4px
 }

@@ -1,3 +1,5 @@
+"use strict";
+
 const SSD_MOBILENETV1 = 'ssd_mobilenetv1'
 const TINY_FACE_DETECTOR = 'tiny_face_detector'
 
@@ -7,7 +9,7 @@ let selectedFaceDetector = TINY_FACE_DETECTOR
 let minConfidence = 0.5
 
 // tiny_face_detector options
-let inputSize = 608 //128, 160, 224, 320, 416, 512, 608
+let inputSize = 320 //128, 160, 224, 320, 416, 512, 608
 let scoreThreshold = 0.5
 
 function getFaceDetectorOptions() {
@@ -19,14 +21,49 @@ function getFaceDetectorOptions() {
 function getCurrentFaceDetectionNet() {
     if (selectedFaceDetector === SSD_MOBILENETV1) {
         return faceapi.nets.ssdMobilenetv1
-    }
-    if (selectedFaceDetector === TINY_FACE_DETECTOR) {
+    } else if (selectedFaceDetector === TINY_FACE_DETECTOR) {
         return faceapi.nets.tinyFaceDetector
+    } else {
+        throw new Error("Error on function getCurrentFaceDetectionNet!");
     }
 }
 
 function isFaceDetectionModelLoaded() {
-    return !!getCurrentFaceDetectionNet().params
+    return !!getCurrentFaceDetectionNet().params;
+}
+
+function getImageElementFromVideoElement(videoElement) {
+    const canvas = document.createElement("canvas");
+    canvas.width = videoElement.videoWidth;
+    canvas.height = videoElement.videoHeight;
+    canvas.getContext('2d').drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight);
+    const image = document.createElement("img")
+    image.src = canvas.toDataURL();
+    return image;
+}
+
+function showExtractedFaceImages(faceImages) {
+    setInputFace(faceImages[0].toDataURL());
+    /*
+    const facesContainer = document.getElementById("facesContainer");
+    facesContainer.innerHTML = "";
+    faceImages.forEach(element => {
+        facesContainer.append(element);
+    })
+    */
+}
+
+async function extractFaces() {
+    const videoEl = document.getElementById("inputVideo");
+    if (videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded()) {
+        return;
+    }
+    const inputImage = getImageElementFromVideoElement(videoEl);
+    const detections = await faceapi.detectAllFaces(inputImage, getFaceDetectorOptions());
+    if (detections.length > 0) {
+        const faceImages = await faceapi.extractFaces(inputImage, detections);
+        showExtractedFaceImages(faceImages);
+    }
 }
 
 async function onPlay() {
@@ -34,14 +71,15 @@ async function onPlay() {
     if (videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded())
         return setTimeout(() => onPlay())
 
-    const options = getFaceDetectorOptions()
+    const result = await faceapi.detectSingleFace(videoEl, getFaceDetectorOptions())
 
-    const result = await faceapi.detectSingleFace(videoEl, options)
+    const canvas = document.getElementById("overlay");
 
     if (result) {
-        const canvas = document.getElementById("overlay");
-        const dims = faceapi.matchDimensions(canvas, videoEl, true)
-        faceapi.draw.drawDetections(canvas, faceapi.resizeResults(result, dims))
+        const dims = faceapi.matchDimensions(canvas, videoEl, true);
+        faceapi.draw.drawDetections(canvas, faceapi.resizeResults(result, dims));
+    } else {
+        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height);
     }
 
     setTimeout(() => onPlay())
@@ -64,11 +102,18 @@ async function changeFaceDetector(detector) {
 async function run() {
     // load face detection model
     await changeFaceDetector(TINY_FACE_DETECTOR)
-    changeInputSize(128)
+    changeInputSize(320)
 
     // try to access users webcam and stream the images
     // to the video element
-    const stream = await navigator.mediaDevices.getUserMedia({ video: {} })
+    const stream = await navigator.mediaDevices.getUserMedia({
+        video: {
+            height: 320,
+            width: 320
+        }
+    })
     const videoEl = document.getElementById("inputVideo");
-    videoEl.srcObject = stream
+    videoEl.srcObject = stream;
+
+    initializeCameraControls();
 }
