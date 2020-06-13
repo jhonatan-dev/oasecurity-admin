@@ -5,12 +5,7 @@ const multer = require("multer");
 
 module.exports = {
     multerImagenConfig: {
-        storage: multer.diskStorage({
-            destination: "./public/uploads/rostros/",
-            filename: (req, file, cb) => {
-                cb(null, new Date().getTime() + path.extname(file.originalname));
-            }
-        }),
+        storage: multer.memoryStorage(),
         limits: { fileSize: 1024 * 1024 * 3 }, //3 MB máx.
         fileFilter: (req, file, cb) => {
             const filetypes = /jpeg|jpg|png/;

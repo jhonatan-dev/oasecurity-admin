@@ -8,22 +8,18 @@ const archivosFront = multer(
   require("../config/multerConfig").multerImagenConfig
 ).fields([{ name: "foto_rostro", maxCount: 1 }]);
 
-router.post("/registro", async (req, res) => {
-  archivosFront(req, res, async (error) => {
-    console.log("files: ", req.files);
-    console.log("body: ", req.body);
-    const { dni, nombres, apellidos, email, password } = req.body;
-    const { filename } = req.files["foto_rostro"][0];
-    let usuario = await adminController.registrarUsuario({
-      dni,
-      nombres,
-      apellidos,
-      email,
-      password,
-      foto_rostro: filename,
-    });
-    res.json(usuario).status(200);
+router.post("/registro", archivosFront, async (req, res) => {
+  const { dni, nombres, apellidos, email, password } = req.body;
+  const archivoFotoRostro = req.files["foto_rostro"][0];
+  let usuario = await adminController.registrarUsuario({
+    dni,
+    nombres,
+    apellidos,
+    email,
+    password,
+    archivoFotoRostro,
   });
+  res.json(usuario).status(200);
 });
 
 router.get("/registro", async (req, res) => {

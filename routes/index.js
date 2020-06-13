@@ -9,7 +9,7 @@ router.get("/", async (req, res) => {
   res.render("index", {
     tituloVentana: "Inicio",
     scripts: ["inicio"],
-    usuarios
+    usuarios,
   });
 });
 
