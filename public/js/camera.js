@@ -22,7 +22,7 @@ async function getMediaStreamFromUser() {
                 }
         );
     } catch (error) {
-        throw new Error("Error on getMediaStreamFromUser");
+        throw new Error("Error on getMediaStreamFromUser: ", error);
     }
 }
 
