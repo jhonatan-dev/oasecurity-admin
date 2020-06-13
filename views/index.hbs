@@ -1,3 +1,27 @@
 <div class="row">
-    <p>Bienvenido...</p>
+    <table class="centered highlight responsive-table">
+        <thead>
+            <tr>
+                <th>DNI</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Foto</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each usuarios}}
+            <tr>
+                <td>{{dni}}</td>
+                <td>{{nombres}}</td>
+                <td>{{apellidos}}</td>
+                <td>{{email}}</td>
+                <td>{{rol.nombre}}</td>
+                <td><img class="circle responsive-img" src="/uploads/rostros/{{url_foto_rostro}}"
+                        alt="Foto de {{nombres}} {{apellidos}}"></td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
 </div>
