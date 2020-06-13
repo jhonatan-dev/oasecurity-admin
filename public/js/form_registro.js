@@ -113,7 +113,7 @@
           new Promise((resolve) => canvas.toBlob(resolve, "image/png")).then(
             function (blob) {
               let formData = new FormData();
-              formData.append("dni", document.getElementById("nombres").value);
+              formData.append("dni", document.getElementById("dni").value);
               formData.append(
                 "nombres",
                 document.getElementById("nombres").value
