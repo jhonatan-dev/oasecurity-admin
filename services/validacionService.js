@@ -4,7 +4,7 @@ const validacionService = {};
 const axios = require("axios");
 const https = require("https");
 const { usuarioModel } = require("../models");
-const apisPeruConfig = require("../config/apisperuConfig");
+const apiPeruDevConfig = require("../config/apiPeruDevConfig");
 
 validacionService.existeEmail = async (email = "") => {
   try {
@@ -38,23 +38,23 @@ validacionService.existeDNI = async (dni = "") => {
 
 validacionService.dniValido = async (dni = "") => {
   try {
-    let resultadoPeticion = await axios.get(`${apisPeruConfig.urlDNI}/${dni}`, {
-      params: {
-        token: apisPeruConfig.token,
-      },
-      httpsAgent: new https.Agent({
-        rejectUnauthorized: false,
-      }),
-    });
+    let resultadoPeticion = await axios.get(
+      `${apiPeruDevConfig.urlDNI}/${dni}`,
+      {
+        headers: { Authorization: `Bearer ${apiPeruDevConfig.token}` },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+      }
+    );
     const data = resultadoPeticion.data;
-    const nombres = data ? `${data.nombres}` : "Desconocido";
-    const apellidos = data
-      ? `${resultadoPeticion.data.apellidoPaterno} ${resultadoPeticion.data.apellidoMaterno}`
-      : "Desconocido";
-    return {
-      nombres: nombres,
-      apellidos: apellidos,
-    };
+    if (data.success) {
+      return {
+        nombres: `${data.data.nombres}`,
+        apellidos: `${data.data.apellido_paterno} ${data.data.apellido_materno}`,
+      };
+    }
+    return null;
   } catch (error) {
     console.error(error);
     return null;
