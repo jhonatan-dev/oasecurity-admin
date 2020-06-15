@@ -44,7 +44,7 @@ router.post("/obtener", multerConfig, async (req, res) => {
   const streamLengthAudioGrabacion = archivoAudioGrabacion.buffer.length;
   console.log(
     "resultado: ",
-    await require("../config/azureSpeakerRecognitionVerificacionConfig").crearInscripcionEnPerfil(
+    await require("../config/azureSpeakerRecognitionVerificacionIndependienteConfig").verificarPerfil(
       "1a3b0033-ceae-4582-983d-3f86a42d3eb5",
       streamAudioGrabacion,
       streamLengthAudioGrabacion,

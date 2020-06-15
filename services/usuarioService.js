@@ -4,7 +4,7 @@ const usuarioService = {};
 const intoStream = require("into-stream");
 const bcryptLib = require("../libs/bcryptLib");
 const usuarioRepository = require("../repository/usuarioRepository");
-const azureSpeakerRecognitionVerificacionConfig = require("../config/azureSpeakerRecognitionVerificacionConfig");
+const azureSpeakerRecognitionVerificacionIndependienteConfig = require("../config/azureSpeakerRecognitionVerificacionIndependienteConfig");
 const {
   blobService,
   nombreContenedorFotosRostro,
@@ -35,7 +35,7 @@ usuarioService.registrarUsuario = async (usuario) => {
       apellidos: usuario.apellidos,
       email: usuario.email,
       password: await bcryptLib.encryptPassword(usuario.password),
-      audio_profile_id: await azureSpeakerRecognitionVerificacionConfig.crearPerfil()
+      audio_profile_id: new Date().getTime()//await azureSpeakerRecognitionVerificacionIndependienteConfig.crearPerfil()
         .identificationProfileId,
       url_foto_rostro: `${urlContenedorFotosRostro}/${archivoFotoRostroGuardado.name}`,
     };
