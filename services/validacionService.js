@@ -15,8 +15,8 @@ validacionService.existeEmail = async (email = "") => {
       },
     });
     return usuario ? true : false;
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(`Error en validacionService.existeEmail: ${err}`);
     return false;
   }
 };
@@ -30,8 +30,8 @@ validacionService.existeDNI = async (dni = "") => {
       },
     });
     return usuario ? true : false;
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(`Error en validacionService.existeDNI: ${err}`);
     return false;
   }
 };
@@ -55,8 +55,8 @@ validacionService.dniValido = async (dni = "") => {
       };
     }
     return null;
-  } catch (error) {
-    console.error(error);
+  } catch (err) {
+    console.error(`Error en validacionService.dniValido: ${err}`);
     return null;
   }
 };

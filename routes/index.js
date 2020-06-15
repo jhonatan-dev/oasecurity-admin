@@ -2,10 +2,10 @@
 
 const express = require("express");
 const router = express.Router();
-const adminController = require("../controllers/adminController");
+const usuarioController = require("../controllers/usuarioController");
 
 router.get("/", async (req, res) => {
-  var usuarios = await adminController.listarUsuarios();
+  var usuarios = await usuarioController.listarUsuarios();
   res.render("index", {
     tituloVentana: "Inicio",
     scripts: ["inicio"],

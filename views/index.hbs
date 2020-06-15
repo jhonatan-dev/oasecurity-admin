@@ -1,4 +1,5 @@
 <div class="row">
+    {{#if usuarios}}
     <table class="centered highlight responsive-table">
         <thead>
             <tr>
@@ -24,4 +25,7 @@
             {{/each}}
         </tbody>
     </table>
+    {{else}}
+    <p>Sin datos de usuarios.</p>
+    {{/if}}
 </div>
