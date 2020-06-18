@@ -8,11 +8,18 @@ function removeInputFace() {
 function createCaptureCameraButton() {
   const btnCaptureCamera = document.createElement("a");
   const btnCaptureCameraIcon = document.createElement("i");
-  const btnCaptureCameraClasses = ["waves-effect", "waves-light", "btn-small"];
+  const btnCaptureCameraClasses = [
+    "waves-effect",
+    "waves-light",
+    "btn",
+    "col",
+    "m12",
+    "s12",
+  ];
   const btnCaptureCameraIconClasses = ["material-icons", "left"];
   btnCaptureCamera.classList.add(...btnCaptureCameraClasses);
   btnCaptureCameraIcon.classList.add(...btnCaptureCameraIconClasses);
-  btnCaptureCamera.innerText = "Capturar";
+  btnCaptureCamera.innerText = "Capturar imagen";
   btnCaptureCameraIcon.innerText = "camera_alt";
   btnCaptureCamera.append(btnCaptureCameraIcon);
   btnCaptureCamera.addEventListener("click", extractFaces);
@@ -26,14 +33,17 @@ function createRemoveCapturedImageButton() {
     "waves-effect",
     "waves-light",
     "red",
-    "btn-small",
+    "btn",
+    "col",
+    "m12",
+    "s12",
   ];
   const btnRemoveCapturedImageIconClasses = ["material-icons", "left"];
   btnRemoveCapturedImage.classList.add(...btnRemoveCapturedImageClasses);
   btnRemoveCapturedImageIcon.classList.add(
     ...btnRemoveCapturedImageIconClasses
   );
-  btnRemoveCapturedImage.innerText = "Eliminar";
+  btnRemoveCapturedImage.innerText = "Borrar captura";
   btnRemoveCapturedImageIcon.innerText = "cancel";
   btnRemoveCapturedImage.append(btnRemoveCapturedImageIcon);
   btnRemoveCapturedImage.addEventListener("click", removeInputFace);

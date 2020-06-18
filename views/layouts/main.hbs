@@ -2,33 +2,30 @@
 <html lang="es">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
-    <title>{{tituloVentana}} | OA Security</title>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link type="text/css" rel="stylesheet" href="/css/materialize.min.css" media="screen,projection" />
-    <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="description" content="Aplicación de administración de OA Security.">
+    <meta name="author" content="OA Security">
     <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>{{tituloVentana}} | OA Security</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 
 <body>
     {{> navigation}}
-
-    <div class="container">
-        <div class="section">
-            {{{body}}}
-        </div>
-    </div>
-
+    {{{body}}}
     {{> footer}}
-    <script type="text/javascript" src="/js/plugins/jquery.min.js"></script>
-    <script type="text/javascript" src="/js/plugins/materialize.min.js"></script>
+    <script src="/js/plugins/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
     <script type="text/javascript" src="/js/plugins/jquery.validate.min.js"></script>
+    <script src="/js/mainScript.js"></script>
     {{#if face_api }}
     <script type="text/javascript" src="/js/plugins/mobile-detect.min.js"></script>
     <script type="text/javascript" src="/js/plugins/face-api.min.js"></script>
     {{/if}}
-
     {{#each scripts}}
     <script src="/js/{{this}}.js"></script>
     {{/each }}

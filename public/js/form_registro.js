@@ -3,7 +3,6 @@
 (function ($) {
   $(function () {
     run();
-    $(".sidenav").sidenav();
     $.validator.setDefaults({
       errorElement: "span",
       errorClass: "invalid",

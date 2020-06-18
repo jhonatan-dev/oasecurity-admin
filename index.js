@@ -10,7 +10,6 @@ const {
 } = require("@handlebars/allow-prototype-access");
 const dotenv = require("dotenv");
 dotenv.config();
-const sequelize = require("./config/sequelizeConfig");
 const cookieParser = require("cookie-parser");
 
 //Inicializaciones
@@ -39,7 +38,6 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use(require("./routes/index"));
-app.use("/validacion", require("./routes/validacionRoute"));
 app.use("/admin", require("./routes/adminRoute"));
 
 //Carpeta Pública donde estarán los .css .js .png .jpg

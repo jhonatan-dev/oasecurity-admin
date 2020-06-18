@@ -2,6 +2,9 @@
 
 const express = require("express");
 const router = express.Router();
+const usuarioController = require("../controllers/usuarioController");
+
+/*
 const multer = require("multer");
 const usuarioController = require("../controllers/usuarioController");
 const multerConfig = multer(
@@ -25,14 +28,6 @@ router.post("/registro", multerConfig, async (req, res) => {
   res.json(nuevoUsuario).status(200);
 });
 
-router.get("/registro", async (req, res) => {
-  res.render("registro", {
-    tituloVentana: "Registro",
-    scripts: ["camera", "camera_controls", "face", "form_registro"],
-    face_api: true,
-  });
-});
-
 router.get("/obtener", async (req, res) => {
   res.render("obtener", { title: "Obtener" });
 });
@@ -52,6 +47,11 @@ router.post("/obtener", multerConfig, async (req, res) => {
     )
   );
   res.redirect("/admin/obtener");
+});
+*/
+
+router.get("/registro", async (req, res) => {
+  usuarioController.registrarUsuarioRenderizado(req, res);
 });
 
 module.exports = router;

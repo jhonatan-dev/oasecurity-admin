@@ -1,31 +1,51 @@
-<div class="row">
-    {{#if usuarios}}
-    <table class="centered highlight responsive-table">
-        <thead>
-            <tr>
-                <th>DNI</th>
-                <th>Nombres</th>
-                <th>Apellidos</th>
-                <th>Email</th>
-                <th>Rol</th>
-                <th>Foto</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#each usuarios}}
-            <tr>
-                <td>{{dni}}</td>
-                <td>{{nombres}}</td>
-                <td>{{apellidos}}</td>
-                <td>{{email}}</td>
-                <td>{{rol.nombre}}</td>
-                <td><img class="circle responsive-img" src="{{url_foto_rostro}}"
-                        alt="Foto de {{nombres}} {{apellidos}}"></td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-    {{else}}
-    <p>Sin datos de usuarios.</p>
-    {{/if}}
+<div class="had-container">
+    <div class="parallax-container prof-user">
+        <div class="parallax"><img
+                src="https://alistapart.com/wp-content/uploads/2016/01/fig-6-background-blend-mode.jpg"></div>
+        <div class="row">
+            <div class="col m4 s8 offset-m4 offset-s2 center">
+                <div class="card-panel center teal">
+                    <span class="white-text">
+                        Bienvenido a OA Security
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col xl12 l12 m12 s12">
+                <div class="card-panel center promo blue-grey darken-3 white-text">
+                    <p class="promo-caption">Usuarios registrados actualmente</p>
+                    {{#if usuarios}}
+                    <table class="bordered centered responsive-table">
+                        <thead>
+                            <tr>
+                                <th>DNI</th>
+                                <th>Nombres</th>
+                                <th>Apellidos</th>
+                                <th>Email</th>
+                                <th>Rol</th>
+                                <th>Foto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each usuarios}}
+                            <tr>
+                                <td>{{dni}}</td>
+                                <td>{{nombres}}</td>
+                                <td>{{apellidos}}</td>
+                                <td>{{email}}</td>
+                                <td>{{rol.nombre}}</td>
+                                <td><img class="circle responsive-img" src="{{url_foto_rostro}}"
+                                        alt="Foto de {{nombres}} {{apellidos}}"></td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                    {{else}}
+                    <p>Sin datos de usuarios.</p>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
