@@ -27,7 +27,7 @@
       function (value, element, valorRequerido) {
         let valido = false;
         $.ajax({
-          url: "/validacion/externa",
+          url: `${urlAPI}/validaciones/externa`,
           method: "GET",
           async: false,
           data: { dni: value },
@@ -63,7 +63,7 @@
           minlength: 8,
           maxlength: 8,
           digits: true,
-          remote: "/validacion/interna",
+          remote: `${urlAPI}/validaciones/interna`,
           dniRegistradoRENIEC: true,
         },
         nombres: {
@@ -74,7 +74,7 @@
         },
         email: {
           required: true,
-          remote: "/validacion/interna",
+          remote: `${urlAPI}/validaciones/interna`,
         },
         password: {
           required: true,
@@ -127,7 +127,7 @@
                 document.getElementById("password").value
               );
               formData.append("foto_rostro", blob, "foto_rostro.png");
-              fetch("/admin/registro", {
+              fetch(`/admin/registro`, {
                 method: "POST",
                 body: formData,
               }).finally(function () {
