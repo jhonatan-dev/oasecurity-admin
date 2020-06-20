@@ -6,11 +6,12 @@
             <div class="col m4 s8 offset-m4 offset-s2 center">
                 <div class="card-panel center teal">
                     <span class="white-text">
-                        Bienvenido a OA Security
+                        Bienvenido! {{usuario.nombres}} {{usuario.apellidos}}
                     </span>
                 </div>
             </div>
         </div>
+        {{#ifeq usuario.rol.nombre '===' 'Administrador'}}
         <div class="row">
             <div class="col xl12 l12 m12 s12">
                 <div class="card-panel center promo blue-grey darken-3 white-text">
@@ -47,5 +48,12 @@
                 </div>
             </div>
         </div>
+        {{else}}
+        <div class="row">
+            <div class="col xl12 l12 m12 s12">
+                <p>Usuario normal!</p>
+            </div>
+        </div>
+        {{/ifeq}}
     </div>
 </div>

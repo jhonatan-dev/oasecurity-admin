@@ -3,14 +3,22 @@
     <a href="/" class="brand-logo center"><img src="/img/logo.png"></a>
     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
+      {{#ifeq usuario.rol.nombre '===' 'Administrador'}}
       <li><a href="/">Inicio</a></li>
       <li><a href="/admin/registro">Registro</a></li>
+      {{/ifeq}}
+      {{#if usuario}}
       <li><a href="/logout">Cerrar Sesión</a></li>
+      {{/if}}
     </ul>
     <ul class="side-nav" id="mobile-demo">
+      {{#ifeq usuario.rol.nombre '===' 'Administrador'}}
       <li><a href="/">Inicio</a></li>
       <li><a href="/admin/registro">Registro</a></li>
+      {{/ifeq}}
+      {{#if usuario}}
       <li><a href="/logout">Cerrar Sesión</a></li>
+      {{/if}}
     </ul>
   </div>
 </nav>

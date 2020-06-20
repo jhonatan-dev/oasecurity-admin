@@ -6,11 +6,12 @@ const https = require("https");
 const intoStream = require("into-stream");
 const FormData = require("form-data");
 const { apiOaSecurityUrl } = require("../config/apisExternasConfig");
+const appId = "OA_SECURITY_ADMIN";
 
 usuarioService.listarUsuarios = async () => {
   try {
     let response = await axios.get(`${apiOaSecurityUrl}/usuarios`, {
-      //headers: { Authorization: `Bearer ${apiPeruDevConfig.token}` },
+      headers: { appCode: appId },
       httpsAgent: new https.Agent({
         rejectUnauthorized: false,
       }),
@@ -48,6 +49,7 @@ usuarioService.registrarUsuario = async (usuario) => {
       formulario,
       {
         headers: {
+          appCode: appId,
           ...formulario.getHeaders(),
         },
         httpsAgent: new https.Agent({
@@ -58,6 +60,27 @@ usuarioService.registrarUsuario = async (usuario) => {
     return response.data;
   } catch (err) {
     console.error(`Error en usuarioService.registrarUsuario: ${err}`);
+  }
+};
+
+usuarioService.iniciarSesion = async (email, password) => {
+  try {
+    let response = await axios.post(
+      `${apiOaSecurityUrl}/usuarios/login`,
+      {
+        email,
+        password,
+      },
+      {
+        headers: { appCode: appId },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.error(`Error en usuarioService.iniciarSesion: ${err}`);
   }
 };
 
