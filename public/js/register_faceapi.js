@@ -4,6 +4,8 @@ const SSD_MOBILENETV1 = "ssd_mobilenetv1";
 const TINY_FACE_DETECTOR = "tiny_face_detector";
 
 let selectedFaceDetector = TINY_FACE_DETECTOR;
+let predictedAges = [];
+let withBoxes = true;
 
 // ssd_mobilenetv1 options
 let minConfidence = 0.5;
@@ -59,6 +61,29 @@ function showExtractedFaceImages(faceImages) {
   facesContainer.style.display = "block";
 }
 
+function interpolateAgePredictions(age) {
+  predictedAges = [age].concat(predictedAges).slice(0, 30);
+  const avgPredictedAge =
+    predictedAges.reduce((total, a) => total + a) / predictedAges.length;
+  return avgPredictedAge;
+}
+
+function drawAgeAndGender(resizedResult, canvas) {
+  const { age, gender, genderProbability } = resizedResult;
+
+  // interpolate gender predictions over last 30 frames
+  // to make the displayed age more stable
+  const interpolatedAge = interpolateAgePredictions(age);
+
+  new faceapi.draw.DrawTextField(
+    [
+      `${faceapi.utils.round(interpolatedAge, 0)} years`,
+      `${gender} (${faceapi.utils.round(genderProbability)})`,
+    ],
+    resizedResult.detection.box.topRight
+  ).draw(canvas);
+}
+
 async function extractFaces() {
   const videoEl = document.getElementById("inputVideo");
   if (videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded()) {
@@ -80,16 +105,30 @@ async function onPlay() {
   if (videoEl.paused || videoEl.ended || !isFaceDetectionModelLoaded())
     return setTimeout(() => onPlay());
 
-  const result = await faceapi.detectSingleFace(
-    videoEl,
-    getFaceDetectorOptions()
-  );
+  const result = await faceapi
+    .detectSingleFace(videoEl, getFaceDetectorOptions())
+    .withFaceLandmarks()
+    .withFaceExpressions(true)
+    .withAgeAndGender();
 
   const canvas = document.getElementById("overlay");
 
   if (result) {
     const dims = faceapi.matchDimensions(canvas, videoEl, true);
-    faceapi.draw.drawDetections(canvas, faceapi.resizeResults(result, dims));
+    const resizedResult = faceapi.resizeResults(result, dims);
+
+    if (withBoxes) {
+      faceapi.draw.drawDetections(canvas, resizedResult);
+    }
+
+    /*
+    faceapi.draw.drawFaceExpressions(
+      canvas,
+      resizedResult,
+      selectedFaceDetector === SSD_MOBILENETV1 ? minConfidence : scoreThreshold
+    );
+    drawAgeAndGender(resizedResult, canvas);
+    */
   } else {
     canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
   }
@@ -113,7 +152,18 @@ async function changeFaceDetector(detector) {
 async function run() {
   // load face detection model
   await changeFaceDetector(TINY_FACE_DETECTOR);
-  changeInputSize(320);
+
+  //load face landmark model for face alignment
+  await faceapi.loadFaceLandmarkModel("/assets/face_nets");
+
+  //load face expression recognition model
+  await faceapi.loadFaceExpressionModel("/assets/face_nets");
+
+  //load age and gender model
+  await faceapi.loadAgeGenderModel("/assets/face_nets");
+
+  //load face recognition model
+  await faceapi.loadFaceRecognitionModel("/assets/face_nets");
 
   // try to access users webcam and stream the images to the video element
   const videoEl = document.getElementById("inputVideo");

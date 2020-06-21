@@ -1,3 +1,7 @@
+html {
+  font-family: GillSans, Calibri, Trebuchet, sans-serif;
+}
+
 body {
   display: flex;
   min-height: 100vh;
@@ -7,6 +11,7 @@ body {
 main {
   flex: 1 0 auto;
 }
+
 .brand-logo > img {
   width: 105px;
   height: 50px;
@@ -21,6 +26,7 @@ main {
   background: rgba(0, 77, 64, 0.5);
   padding: 15px 0;
 }
+
 .truncate > img {
   width: 120px;
 }
@@ -55,6 +61,14 @@ footer .foot-text {
 }
 
 .logueo {
+  height: auto;
+}
+
+.logueo-facial {
+  height: auto;
+}
+
+.logueo-voz {
   height: auto;
 }
 

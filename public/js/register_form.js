@@ -4,23 +4,14 @@
   $(function () {
     run();
     $.validator.setDefaults({
-      errorElement: "span",
       errorClass: "invalid",
       validClass: "valid",
       errorPlacement: function (error, element) {
-        let errorId = `#${error.attr("id")}`;
-        if ($(errorId)) {
-          $(errorId).remove();
-        }
-        error.removeClass("invalid");
-        error.addClass("helper-text");
-        error.attr("data-error", error.text());
-        error.text("");
-        error.insertAfter(element);
-      },
-      success: function (error) {
-        error.remove();
-      },
+        $(element)
+          .closest("form")
+          .find("label[for='" + element.attr("id") + "']")
+          .attr("data-error", error.text());
+      }
     });
     $.validator.addMethod(
       "dniRegistradoRENIEC",

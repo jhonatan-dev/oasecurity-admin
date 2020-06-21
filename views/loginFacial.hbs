@@ -1,0 +1,36 @@
+<div class="had-container">
+    <div class="parallax-container logueo-facial">
+        <div class="parallax"><img
+                src="https://alistapart.com/wp-content/uploads/2016/01/fig-6-background-blend-mode.jpg"></div>
+        <div class="row">
+            <div class="col m8 s12 offset-m2 center">
+                <h4 class="truncate bg-card-user">
+                    <div class="row login">
+                        <h4>Login Facial</h4>
+                        <div class="row">
+                            <div class="progress" id="loader">
+                                <div class="indeterminate"></div>
+                            </div>
+                            <div id="div_camera">
+                                <video class="responsive-video" onloadedmetadata="onPlay(this)" id="inputVideo" autoplay
+                                    muted playsinline></video>
+                                <canvas id="overlay" />
+                            </div>
+                        </div>
+                        <div class="row" style="font-size: 1.5rem;">
+                            <p>Rostro detectado: <small id="smallRostroDetectado">Cargando...</small></p>
+                            <p>Gestos a realizar: <small>4</small></p>
+                            <p>Gestos realizados: <small id="smallGestosRealizados">Cargando...</small></p>
+                            <p>Gestos a realizar: <small id="smallGestosRealizados">Cargando...</small></p>
+                        </div>
+                        <div class="row">
+                            <div id="cameraControls"></div>
+                        </div>
+                        <div id="facesContainer" class="row col m12 s12" style="display: none;">
+                        </div>
+                    </div>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>

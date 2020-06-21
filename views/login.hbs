@@ -8,20 +8,20 @@
                     <img src="https://cdn3.iconfinder.com/data/icons/faticons/32/user-01-512.png" alt=""
                         class="circle responsive-img">
                     <div class="row login">
-                        <h4>Inicio de Sesión</h4>
-                        <form class="col m12 s12" action="/login" method="POST">
+                        <h4>Login</h4>
+                        <form id="formLogin" class="col m12 s12" action="/login" method="POST">
                             <div class="row">
                                 <div class="input-field col m12 s12">
-                                    <i class="material-icons iconis prefix">account_box</i>
+                                    <input id="email" type="email" name="email" class="validate" autocomplete="off"
+                                        required>
                                     <label for="email">Correo electrónico</label>
-                                    <input id="email" type="email" name="email" class="validate" autocomplete="off">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col m12 s12">
-                                    <i class="material-icons iconis prefix">enhanced_encryption</i>
+                                    <input id="password" type="password" name="password" class="validate" minlength="8"
+                                        required>
                                     <label for="password">Contraseña</label>
-                                    <input id="password" type="password" name="password" class="validate">
                                 </div>
                             </div>
                             <div class="row">
