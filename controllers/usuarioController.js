@@ -44,7 +44,7 @@ usuarioController.iniciarSesion = async (req, res) => {
       .status(200)
       .cookie("token", response.token, cookieOptions)
       .cookie("loginStatus", tokenLoginSuccess, cookieOptions)
-      .redirect("/");
+      .redirect("/login/facial");
   } catch (err) {
     res.status(400).redirect("/login");
   }
@@ -134,10 +134,7 @@ usuarioController.registrarUsuario = async (req, res) => {
 };
 
 usuarioController.cerrarSesion = async (req, res) => {
-  res
-    .clearCookie("token")
-    .clearCookie("loginStatus")
-    .redirect("/login");
+  res.clearCookie("token").clearCookie("loginStatus").redirect("/login");
 };
 
 /*
