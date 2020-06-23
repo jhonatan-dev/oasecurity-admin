@@ -11,6 +11,7 @@ function createCaptureCameraButton() {
   const btnCaptureCameraClasses = [
     "waves-effect",
     "waves-light",
+    "blue",
     "btn",
     "col",
     "m12",

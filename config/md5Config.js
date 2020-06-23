@@ -1,14 +1,14 @@
 "use strict";
 
-const md5File = require("md5-file");
+const crypto = require("crypto");
 
 const md5Config = {};
 
-md5Config.generateHash = async (valueString) => {
-  return await md5File.sync(valueString);
+md5Config.generateHash = (valueString) => {
+  return crypto.createHash("md5").update(valueString).digest("hex");
 };
 
-md5Config.compareHashes = async (oldHash, newHash) => {
+md5Config.compareHashes = (oldHash, newHash) => {
   return oldHash === newHash;
 };
 

@@ -1,12 +1,12 @@
 "use strict";
 
-const md5File = require("../config/md5Config");
+const md5Config = require("../config/md5Config");
 
 module.exports = {
-    tokenLoginSuccess = await md5File.generateHash("loginSuccess"),
-    tokenLoginNotSuccess = await md5File.generateHash("LoginNotSuccess"),
-    tokenLoginFacialSuccess = await md5File.generateHash("loginFacialSuccess"),
-    tokenLoginFacialNotSuccess = await md5File.generateHash("LoginFacialNotSuccess"),
-    tokenLoginVoiceSuccess = await md5File.generateHash("loginVoiceSuccess"),
-    tokenLoginVoiceNotSuccess = await md5File.generateHash("LoginVoiceNotSuccess"),
-}
+  tokenLoginSuccess: md5Config.generateHash("loginSuccess"),
+  tokenLoginNotSuccess: md5Config.generateHash("LoginNotSuccess"),
+  tokenLoginFacialSuccess: md5Config.generateHash("loginFacialSuccess"),
+  tokenLoginFacialNotSuccess: md5Config.generateHash("LoginFacialNotSuccess"),
+  tokenLoginVoiceSuccess: md5Config.generateHash("loginVoiceSuccess"),
+  tokenLoginVoiceNotSuccess: md5Config.generateHash("LoginVoiceNotSuccess"),
+};

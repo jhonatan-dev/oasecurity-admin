@@ -1,12 +1,52 @@
 "use strict";
 
-let smallRostroDetectado = document.getElementById("smallRostroDetectado");
+let controlesMostrados = false;
 
-let rostroDectectado = false;
+function mostradoControles() {
+  return controlesMostrados;
+}
+
+function mostrarControles(valor = true) {
+  controlesMostrados = valor;
+}
+
+function removeAnalysisButton() {
+  const btnAnalysisButton = document.getElementById("btnAnalysisButton");
+  if (btnAnalysisButton) {
+    btnAnalysisButton.remove();
+  }
+}
+
+function enviarAzure(){
+  alert("Enviando a azure...");
+}
 
 function removeInputFace() {
   document.getElementById("facesContainer").innerHTML = "";
   document.getElementById("facesContainer").style.display = "none";
+  removeAnalysisButton();
+}
+
+function createAnalysisButton() {
+  const btnAnalysisButton = document.createElement("a");
+  btnAnalysisButton.id = "btnAnalysisButton";
+  const btnAnalysisButtonIcon = document.createElement("i");
+  const btnAnalysisButtonClasses = [
+    "waves-effect",
+    "waves-light",
+    "btn",
+    "col",
+    "m12",
+    "s12",
+  ];
+  const btnAnalysisButtonIconClasses = ["material-icons", "right"];
+  btnAnalysisButton.classList.add(...btnAnalysisButtonClasses);
+  btnAnalysisButtonIcon.classList.add(...btnAnalysisButtonIconClasses);
+  btnAnalysisButton.innerText = "Iniciar Sesión";
+  btnAnalysisButtonIcon.innerText = "send";
+  btnAnalysisButton.append(btnAnalysisButtonIcon);
+  btnAnalysisButton.addEventListener("click", enviarAzure);
+  return btnAnalysisButton;
 }
 
 function createCaptureCameraButton() {
@@ -15,6 +55,7 @@ function createCaptureCameraButton() {
   const btnCaptureCameraClasses = [
     "waves-effect",
     "waves-light",
+    "blue",
     "btn",
     "col",
     "m12",
@@ -52,17 +93,6 @@ function createRemoveCapturedImageButton() {
   btnRemoveCapturedImage.append(btnRemoveCapturedImageIcon);
   btnRemoveCapturedImage.addEventListener("click", removeInputFace);
   return btnRemoveCapturedImage;
-}
-
-function controlarDetecciones(result) {
-  //console.log("resultado: ", result.expressions)
-  const gestos = ["angry", "disgusted", "fearful", "happy", "neutral", "sad", "surprised"];
-  rostroDectectado = result ? true : false;
-  if (rostroDectectado) {
-    smallRostroDetectado.innerText = "SI";
-  } else {
-    smallRostroDetectado.innerText = "NO";
-  }
 }
 
 function initializeCameraControls() {

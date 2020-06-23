@@ -98,6 +98,9 @@ async function extractFaces() {
     const faceImages = await faceapi.extractFaces(inputImage, detections);
     showExtractedFaceImages(faceImages);
   }
+
+  const cameraControls = document.getElementById("cameraControls");
+  cameraControls.append(createAnalysisButton());
 }
 
 async function onPlay() {
@@ -169,5 +172,4 @@ async function run() {
   const videoEl = document.getElementById("inputVideo");
   const stream = await getMediaStreamFromUser();
   setVideoMediaStream(videoEl, stream);
-  initializeCameraControls();
 }
