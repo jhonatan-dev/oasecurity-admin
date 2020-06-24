@@ -97,10 +97,10 @@ async function extractFaces() {
   if (detections.length > 0) {
     const faceImages = await faceapi.extractFaces(inputImage, detections);
     showExtractedFaceImages(faceImages);
+    
+    const cameraControls = document.getElementById("cameraControls");
+    cameraControls.append(createAnalysisButton());
   }
-
-  const cameraControls = document.getElementById("cameraControls");
-  cameraControls.append(createAnalysisButton());
 }
 
 async function onPlay() {

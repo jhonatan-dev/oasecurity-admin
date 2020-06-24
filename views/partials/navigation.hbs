@@ -2,6 +2,7 @@
   <div class="nav-wrapper">
     <a href="/" class="brand-logo center"><img src="/img/logo.png"></a>
     {{#if usuario}}
+    {{#if usuario.verificado}}
     <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
     <ul class="right hide-on-med-and-down">
       {{#ifeq usuario.rol.nombre '===' 'Administrador'}}
@@ -17,6 +18,7 @@
       {{/ifeq}}
       <li><a href="/logout">Cerrar Sesión</a></li>
     </ul>
+    {{/if}}
     {{/if}}
   </div>
 </nav>

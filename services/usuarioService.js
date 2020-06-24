@@ -84,4 +84,33 @@ usuarioService.iniciarSesion = async (email, password) => {
   }
 };
 
+usuarioService.iniciarSesionFacial = async (faceId1, faceId2File) => {
+  try {
+    const formulario = new FormData();
+    const streamFaceId2File = intoStream(faceId2File.buffer);
+    formulario.append("face_id_2", streamFaceId2File, {
+      filename: "face_id_2.png",
+      contentType: faceId2File.mimetype,
+      knownLength: faceId2File.buffer.length,
+    });
+    let response = await axios.post(
+      `${apiOaSecurityUrl}/usuarios/login/facial`,
+      formulario,
+      {
+        headers: {
+          appCode: appId,
+          faceId1: faceId1,
+          ...formulario.getHeaders(),
+        },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.error(`Error en usuarioService.iniciarSesionFacial: ${err}`);
+  }
+};
+
 module.exports = usuarioService;

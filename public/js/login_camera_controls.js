@@ -17,8 +17,21 @@ function removeAnalysisButton() {
   }
 }
 
-function enviarAzure(){
-  alert("Enviando a azure...");
+function enviarAzure() {
+  const facesContainer = document.getElementById("facesContainer");
+  if (facesContainer.hasChildNodes()) {
+    const canvas = facesContainer.firstElementChild;
+    new Promise((resolve) => canvas.toBlob(resolve, "image/png")).then(
+      function (blob) {
+        let formData = new FormData();
+        formData.append("face_id_2", blob, "face_id_2.png");
+        fetch(`/admin/registro`, {
+          method: "POST",
+          body: formData,
+        });
+      }
+    );
+  }
 }
 
 function removeInputFace() {
@@ -39,11 +52,11 @@ function createAnalysisButton() {
     "m12",
     "s12",
   ];
-  const btnAnalysisButtonIconClasses = ["material-icons", "right"];
+  const btnAnalysisButtonIconClasses = ["material-icons", "left"];
   btnAnalysisButton.classList.add(...btnAnalysisButtonClasses);
   btnAnalysisButtonIcon.classList.add(...btnAnalysisButtonIconClasses);
   btnAnalysisButton.innerText = "Iniciar Sesión";
-  btnAnalysisButtonIcon.innerText = "send";
+  btnAnalysisButtonIcon.innerText = "fingerprint";
   btnAnalysisButton.append(btnAnalysisButtonIcon);
   btnAnalysisButton.addEventListener("click", enviarAzure);
   return btnAnalysisButton;
