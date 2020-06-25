@@ -6,7 +6,7 @@ async function getMediaStreamFromUser() {
     return await navigator.mediaDevices.getUserMedia(
       md.mobile()
         ? {
-            audio: true,
+            audio: false,
             video: {
               width: { min: 640, ideal: 800, max: 1280 },
               height: { min: 480, ideal: 600, max: 720 },
@@ -14,7 +14,7 @@ async function getMediaStreamFromUser() {
             },
           }
         : {
-            audio: true,
+            audio: false,
             video: {
               width: { min: 640, ideal: 800, max: 1280 },
               height: { min: 480, ideal: 600, max: 720 },

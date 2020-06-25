@@ -7,7 +7,7 @@ const multer = require("multer");
 const multerConfig = multer(
   require("../config/multerConfig").multerConfig
 ).fields([
-  { name: "foto_rostro", maxCount: 1 },
+  { name: "face_id_2", maxCount: 1 },
   { name: "audio_grabacion", maxCount: 1 },
 ]);
 
@@ -23,7 +23,7 @@ router.get("/login/facial", async (req, res) => {
   await usuarioController.iniciarSesionFacialRenderizado(req, res);
 });
 
-router.post("/login/facial", async (req, res) => {
+router.post("/login/facial", multerConfig, async (req, res) => {
   await usuarioController.iniciarSesionFacial(req, res);
 });
 

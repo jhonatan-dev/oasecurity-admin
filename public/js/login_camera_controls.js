@@ -25,10 +25,22 @@ function enviarAzure() {
       function (blob) {
         let formData = new FormData();
         formData.append("face_id_2", blob, "face_id_2.png");
-        fetch(`/admin/registro`, {
+        fetch(`/login/facial`, {
           method: "POST",
           body: formData,
-        });
+        })
+          .then((respuesta) => {
+            if (respuesta.status === 200) {
+              window.location.href = "/";
+            } else if (respuesta.status === 401) {
+              $("#modalFacial").modal("open");
+            } else {
+              window.location.reload();
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }
     );
   }

@@ -10,6 +10,7 @@ const cookieOptions = {
   maxAge: 24 * 3600000, //expira en 24 horas
   httpOnly: true,
   secure: true,
+  signed: true,
 };
 
 const {
@@ -24,7 +25,7 @@ usuarioController.iniciarSesionRenderizado = async (req, res) => {
     loginStatus,
     loginFacialStatus,
     loginVoiceStatus,
-  } = req.cookies;
+  } = req.signedCookies;
   if (
     token &&
     loginStatus &&
@@ -63,7 +64,7 @@ usuarioController.iniciarSesion = async (req, res) => {
 };
 
 usuarioController.iniciarSesionFacialRenderizado = async (req, res) => {
-  const { token, loginStatus, loginFacialStatus } = req.cookies;
+  const { token, loginStatus, loginFacialStatus } = req.signedCookies;
   if (
     token &&
     loginStatus &&
@@ -93,7 +94,7 @@ usuarioController.iniciarSesionFacialRenderizado = async (req, res) => {
 };
 
 usuarioController.iniciarSesionFacial = async (req, res) => {
-  const { token, loginStatus } = req.cookies;
+  const { token, loginStatus } = req.signedCookies;
   if (token && loginStatus && loginStatus === tokenLoginSuccess) {
     const faceId2File = req.files["face_id_2"][0];
     let usuario = jsonWebTokenConfig.verify(token);
@@ -105,7 +106,7 @@ usuarioController.iniciarSesionFacial = async (req, res) => {
       res
         .cookie("loginFacialStatus", tokenLoginFacialSuccess, cookieOptions)
         .status(200)
-        .redirect("/");
+        .end();
     } else {
       res.status(401).end();
     }
@@ -123,7 +124,7 @@ usuarioController.listarUsuariosRenderizado = async (req, res) => {
     loginStatus,
     loginFacialStatus,
     loginVoiceStatus,
-  } = req.cookies;
+  } = req.signedCookies;
   if (
     token &&
     loginStatus &&
@@ -155,7 +156,7 @@ usuarioController.registrarUsuarioRenderizado = async (req, res) => {
     loginStatus,
     loginFacialStatus,
     loginVoiceStatus,
-  } = req.cookies;
+  } = req.signedCookies;
   if (
     token &&
     loginStatus &&
@@ -197,7 +198,7 @@ usuarioController.registrarUsuario = async (req, res) => {
     loginStatus,
     loginFacialStatus,
     loginVoiceStatus,
-  } = req.cookies;
+  } = req.signedCookies;
   if (
     token &&
     loginStatus &&

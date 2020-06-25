@@ -35,7 +35,7 @@ app.set("view engine", ".hbs");
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser("oa_security"));
 
 app.use(require("./routes/index"));
 app.use("/admin", require("./routes/adminRoute"));
