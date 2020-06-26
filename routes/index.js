@@ -8,7 +8,7 @@ const multerConfig = multer(
   require("../config/multerConfig").multerConfig
 ).fields([
   { name: "face_id_2", maxCount: 1 },
-  { name: "audio_grabacion", maxCount: 1 },
+  { name: "audio_data", maxCount: 1 },
 ]);
 
 router.get("/login", async (req, res) => {

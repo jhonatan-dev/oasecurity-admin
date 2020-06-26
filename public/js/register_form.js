@@ -11,7 +11,7 @@
           .closest("form")
           .find("label[for='" + element.attr("id") + "']")
           .attr("data-error", error.text());
-      }
+      },
     });
     $.validator.addMethod(
       "dniRegistradoRENIEC",
@@ -117,7 +117,11 @@
                 "password",
                 document.getElementById("password").value
               );
-              formData.append("foto_rostro", blob, "foto_rostro.png");
+              formData.append(
+                "foto_rostro",
+                blob,
+                `${new Date().toISOString()}.png`
+              );
               fetch(`/admin/registro`, {
                 method: "POST",
                 body: formData,

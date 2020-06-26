@@ -9,7 +9,7 @@ const jsonWebTokenConfig = require("../config/jsonWebTokenConfig");
 const cookieOptions = {
   maxAge: 24 * 3600000, //expira en 24 horas
   httpOnly: true,
-  secure: true,
+  secure: false,
   signed: true,
 };
 
@@ -130,12 +130,38 @@ usuarioController.iniciarSesionVozRenderizado = async (req, res) => {
     return res.redirect("/");
   } else if (token && loginStatus && loginStatus === tokenLoginSuccess) {
     res.render("loginVoz", {
-      scripts: ["login_voice"],
+      scripts: ["login_voice_controls", "login_voice"],
+      recorder_js: true,
       tituloVentana: "Login Voz",
     });
   } else {
     res
       .clearCookie("token")
+      .clearCookie("loginStatus")
+      .clearCookie("loginVoiceStatus")
+      .redirect("/login");
+  }
+};
+
+usuarioController.iniciarSesionVoz = async (req, res) => {
+  const { token, loginStatus } = req.signedCookies;
+  if (token && loginStatus && loginStatus === tokenLoginSuccess) {
+    const audioFile = req.files["audio_data"][0];
+    let usuario = jsonWebTokenConfig.verify(token);
+    let respuesta = await usuarioService.iniciarSesionVoz(
+      usuario.audio_profile_id,
+      audioFile
+    );
+    if (respuesta.recognitionResult === "Accept") {
+      res
+        .cookie("loginVoiceStatus", tokenLoginVoiceSuccess, cookieOptions)
+        .status(200)
+        .end();
+    } else {
+      res.status(401).end();
+    }
+  } else {
+    res
       .clearCookie("loginStatus")
       .clearCookie("loginVoiceStatus")
       .redirect("/login");

@@ -33,13 +33,13 @@ usuarioService.registrarUsuario = async (usuario) => {
     formulario.append("email", usuario.email);
     formulario.append("password", usuario.password);
     formulario.append("foto_rostro", streamFotoRostro, {
-      filename: "foto_rostro.png",
+      filename: `${new Date().toISOString()}.png`,
       contentType: usuario.archivoFotoRostro.mimetype,
       knownLength: usuario.archivoFotoRostro.buffer.length,
     });
     /*
     formulario.append("audio_grabacion", streamAudioGrabacion, {
-      filename: "audio_grabacion.wav",
+      filename: `${new Date().toISOString()}.wav`,
       contentType: usuario.archivoAudioGrabacion.mimetype,
       knownLength: usuario.archivoAudioGrabacion.buffer.length,
     });
@@ -89,7 +89,7 @@ usuarioService.iniciarSesionFacial = async (faceId1, faceId2File) => {
     const formulario = new FormData();
     const streamFaceId2File = intoStream(faceId2File.buffer);
     formulario.append("face_id_2", streamFaceId2File, {
-      filename: "face_id_2.png",
+      filename: `${new Date().toISOString()}.png`,
       contentType: faceId2File.mimetype,
       knownLength: faceId2File.buffer.length,
     });
@@ -100,6 +100,35 @@ usuarioService.iniciarSesionFacial = async (faceId1, faceId2File) => {
         headers: {
           appCode: appId,
           faceId1: faceId1,
+          ...formulario.getHeaders(),
+        },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.error(`Error en usuarioService.iniciarSesionFacial: ${err}`);
+  }
+};
+
+usuarioService.iniciarSesionVoz = async (profileId, audioFile) => {
+  try {
+    const formulario = new FormData();
+    const streamAudioFile = intoStream(audioFile.buffer);
+    formulario.append("audio_grabacion", streamAudioFile, {
+      filename: `${new Date().toISOString()}.wav`,
+      contentType: audioFile.mimetype,
+      knownLength: audioFile.buffer.length,
+    });
+    let response = await axios.post(
+      `${apiOaSecurityUrl}/usuarios/login/voz`,
+      formulario,
+      {
+        headers: {
+          appCode: appId,
+          profileId: profileId,
           ...formulario.getHeaders(),
         },
         httpsAgent: new https.Agent({
