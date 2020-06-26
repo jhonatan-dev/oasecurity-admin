@@ -48,8 +48,8 @@ main {
   padding: 2px 10px;
 }
 
-footer{
-  margin-top:auto; 
+footer {
+  margin-top: auto;
 }
 
 footer .foot-text {
@@ -87,6 +87,29 @@ i.iconis {
   margin: 0 auto;
   background-color: rgba(255, 255, 255, 0.7);
   padding: 20px;
+}
+
+@media (min-width: 724px) {
+  #comandosFaciales > p {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 623px) {
+  #comandosFaciales > p {
+    font-size: 1.3rem;
+  }
+}
+
+#comandosFaciales > p {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+}
+
+#smallGestoRealizar {
+  color: green;
 }
 
 #div_camera {

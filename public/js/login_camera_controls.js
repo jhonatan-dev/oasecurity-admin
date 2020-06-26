@@ -33,6 +33,7 @@ function enviarAzure() {
             if (respuesta.status === 200) {
               window.location.href = "/";
             } else if (respuesta.status === 401) {
+              $("#modalFacial").modal();
               $("#modalFacial").modal("open");
             } else {
               window.location.reload();

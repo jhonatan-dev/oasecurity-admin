@@ -19,8 +19,8 @@ const contenedorGestos = [
     en: "angry",
   },
   {
-    es: "Miedoso",
-    en: "fearful",
+    es: "Neutral",
+    en: "neutral",
   },
   {
     es: "Feliz",

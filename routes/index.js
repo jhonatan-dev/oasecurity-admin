@@ -27,6 +27,14 @@ router.post("/login/facial", multerConfig, async (req, res) => {
   await usuarioController.iniciarSesionFacial(req, res);
 });
 
+router.get("/login/voz", async (req, res) => {
+  await usuarioController.iniciarSesionVozRenderizado(req, res);
+});
+
+router.post("/login/voz", multerConfig, async (req, res) => {
+  await usuarioController.iniciarSesionVoz(req, res);
+});
+
 router.get("/logout", async (req, res) => {
   await usuarioController.cerrarSesion(req, res);
 });

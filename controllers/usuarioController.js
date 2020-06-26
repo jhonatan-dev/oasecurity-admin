@@ -118,6 +118,30 @@ usuarioController.iniciarSesionFacial = async (req, res) => {
   }
 };
 
+usuarioController.iniciarSesionVozRenderizado = async (req, res) => {
+  const { token, loginStatus, loginVoiceStatus } = req.signedCookies;
+  if (
+    token &&
+    loginStatus &&
+    loginStatus === tokenLoginSuccess &&
+    loginVoiceStatus &&
+    loginVoiceStatus === tokenLoginVoiceSuccess
+  ) {
+    return res.redirect("/");
+  } else if (token && loginStatus && loginStatus === tokenLoginSuccess) {
+    res.render("loginVoz", {
+      scripts: ["login_voice"],
+      tituloVentana: "Login Voz",
+    });
+  } else {
+    res
+      .clearCookie("token")
+      .clearCookie("loginStatus")
+      .clearCookie("loginVoiceStatus")
+      .redirect("/login");
+  }
+};
+
 usuarioController.listarUsuariosRenderizado = async (req, res) => {
   const {
     token,
