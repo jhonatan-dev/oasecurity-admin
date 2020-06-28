@@ -152,7 +152,7 @@ usuarioController.iniciarSesionVoz = async (req, res) => {
       usuario.audio_profile_id,
       audioFile
     );
-    if (respuesta.recognitionResult === "Accept") {
+    if (respuesta.identico) {
       res
         .cookie("loginVoiceStatus", tokenLoginVoiceSuccess, cookieOptions)
         .status(200)
@@ -258,7 +258,7 @@ usuarioController.registrarUsuario = async (req, res) => {
   ) {
     const { dni, nombres, apellidos, email, password } = req.body;
     const archivoFotoRostro = req.files["foto_rostro"][0];
-    //const archivoAudioGrabacion = req.files["audio_grabacion"][0];
+    const archivoAudioGrabacion = req.files["audio_grabacion"][0];
     try {
       await usuarioService.registrarUsuario({
         dni,
@@ -267,7 +267,7 @@ usuarioController.registrarUsuario = async (req, res) => {
         email,
         password,
         archivoFotoRostro,
-        //archivoAudioGrabacion,
+        archivoAudioGrabacion,
       });
       res.status(201).end();
     } catch (err) {

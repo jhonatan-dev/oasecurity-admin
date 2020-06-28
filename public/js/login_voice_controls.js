@@ -2,7 +2,6 @@ let divSendAudio = document.getElementById("divSendAudio");
 let smallSeconds = document.getElementById("smallSeconds");
 
 function enviarAzure(blob) {
-  console.log(blob);
   let formData = new FormData();
   formData.append("audio_data", blob, `${new Date().toISOString()}.wav`);
   fetch(`/login/voz`, {
@@ -13,7 +12,8 @@ function enviarAzure(blob) {
       if (respuesta.status === 200) {
         window.location.href = "/";
       } else if (respuesta.status === 401) {
-        window.location.href = "/login";
+        $("#modalVoz").modal();
+        $("#modalVoz").modal("open");
       } else {
         window.location.reload();
       }

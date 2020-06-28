@@ -26,7 +26,9 @@ usuarioService.registrarUsuario = async (usuario) => {
   try {
     const formulario = new FormData();
     const streamFotoRostro = intoStream(usuario.archivoFotoRostro.buffer);
-    //const streamAudioGrabacion = intoStream(usuario.archivoAudioGrabacion.buffer);
+    const streamAudioGrabacion = intoStream(
+      usuario.archivoAudioGrabacion.buffer
+    );
     formulario.append("dni", usuario.dni);
     formulario.append("nombres", usuario.nombres);
     formulario.append("apellidos", usuario.apellidos);
@@ -37,13 +39,11 @@ usuarioService.registrarUsuario = async (usuario) => {
       contentType: usuario.archivoFotoRostro.mimetype,
       knownLength: usuario.archivoFotoRostro.buffer.length,
     });
-    /*
     formulario.append("audio_grabacion", streamAudioGrabacion, {
       filename: `${new Date().toISOString()}.wav`,
       contentType: usuario.archivoAudioGrabacion.mimetype,
       knownLength: usuario.archivoAudioGrabacion.buffer.length,
     });
-    */
     let response = await axios.post(
       `${apiOaSecurityUrl}/usuarios`,
       formulario,
