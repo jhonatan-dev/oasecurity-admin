@@ -9,7 +9,7 @@ const jsonWebTokenConfig = require("../config/jsonWebTokenConfig");
 const cookieOptions = {
   maxAge: 24 * 3600000, //expira en 24 horas
   httpOnly: true,
-  secure: true,
+  secure: false,
   signed: true,
 };
 
@@ -99,7 +99,7 @@ usuarioController.iniciarSesionFacial = async (req, res) => {
     const faceId2File = req.files["face_id_2"][0];
     let usuario = jsonWebTokenConfig.verify(token);
     let respuesta = await usuarioService.iniciarSesionFacial(
-      usuario.image_face_id,
+      usuario.id,
       faceId2File
     );
     if (respuesta.identico) {

@@ -84,7 +84,7 @@ usuarioService.iniciarSesion = async (email, password) => {
   }
 };
 
-usuarioService.iniciarSesionFacial = async (faceId1, faceId2File) => {
+usuarioService.iniciarSesionFacial = async (idUsuario, faceId2File) => {
   try {
     const formulario = new FormData();
     const streamFaceId2File = intoStream(faceId2File.buffer);
@@ -99,7 +99,7 @@ usuarioService.iniciarSesionFacial = async (faceId1, faceId2File) => {
       {
         headers: {
           appCode: appId,
-          faceId1: faceId1,
+          idUsuario: idUsuario,
           ...formulario.getHeaders(),
         },
         httpsAgent: new https.Agent({
