@@ -9,7 +9,7 @@ const jsonWebTokenConfig = require("../config/jsonWebTokenConfig");
 const cookieOptions = {
   maxAge: 24 * 3600000, //expira en 24 horas
   httpOnly: true,
-  secure: false,
+  secure: true,
   signed: true,
 };
 
