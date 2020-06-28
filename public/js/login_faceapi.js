@@ -99,6 +99,8 @@ async function extractFaces() {
     showExtractedFaceImages(faceImages);
     
     const cameraControls = document.getElementById("cameraControls");
+    
+    removeAnalysisButton();
     cameraControls.append(createAnalysisButton());
   }
 }
