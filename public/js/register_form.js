@@ -98,38 +98,43 @@
       },
       submitHandler: function (form) {
         const facesContainer = document.getElementById("facesContainer");
-        if (facesContainer.hasChildNodes()) {
-          const canvas = facesContainer.firstElementChild;
-          new Promise((resolve) => canvas.toBlob(resolve, "image/png")).then(
-            function (blob) {
-              let formData = new FormData();
-              formData.append("dni", document.getElementById("dni").value);
-              formData.append(
-                "nombres",
-                document.getElementById("nombres").value
-              );
-              formData.append(
-                "apellidos",
-                document.getElementById("apellidos").value
-              );
-              formData.append("email", document.getElementById("email").value);
-              formData.append(
-                "password",
-                document.getElementById("password").value
-              );
-              formData.append(
-                "foto_rostro",
-                blob,
-                `${new Date().toISOString()}.png`
-              );
-              fetch(`/admin/registro`, {
-                method: "POST",
-                body: formData,
-              }).finally(function () {
-                window.location.href = "/";
-              });
-            }
-          );
+        if (facesContainer.hasChildNodes() && currentAudioBlob != null) {
+          const canvasRostro = facesContainer.firstElementChild;
+          new Promise((resolve) =>
+            canvasRostro.toBlob(resolve, "image/png")
+          ).then(function (fotoRostroBlob) {
+            let formData = new FormData();
+            formData.append("dni", document.getElementById("dni").value);
+            formData.append(
+              "nombres",
+              document.getElementById("nombres").value
+            );
+            formData.append(
+              "apellidos",
+              document.getElementById("apellidos").value
+            );
+            formData.append("email", document.getElementById("email").value);
+            formData.append(
+              "password",
+              document.getElementById("password").value
+            );
+            formData.append(
+              "foto_rostro",
+              fotoRostroBlob,
+              `${new Date().toISOString()}.png`
+            );
+            formData.append(
+              "audio_grabacion",
+              currentAudioBlob,
+              `${new Date().toISOString()}.wav`
+            );
+            fetch(`/admin/registro`, {
+              method: "POST",
+              body: formData,
+            }).finally(function () {
+              window.location.href = "/";
+            });
+          });
         }
         return false;
       },

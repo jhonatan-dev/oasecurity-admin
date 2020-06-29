@@ -90,7 +90,7 @@ function createCaptureCameraButton() {
   const btnCaptureCameraIconClasses = ["material-icons", "left"];
   btnCaptureCamera.classList.add(...btnCaptureCameraClasses);
   btnCaptureCameraIcon.classList.add(...btnCaptureCameraIconClasses);
-  btnCaptureCamera.innerText = "Capturar imagen";
+  btnCaptureCamera.innerText = "Capturar rostro";
   btnCaptureCameraIcon.innerText = "camera_alt";
   btnCaptureCamera.append(btnCaptureCameraIcon);
   btnCaptureCamera.addEventListener("click", extractFaces);
@@ -114,7 +114,7 @@ function createRemoveCapturedImageButton() {
   btnRemoveCapturedImageIcon.classList.add(
     ...btnRemoveCapturedImageIconClasses
   );
-  btnRemoveCapturedImage.innerText = "Borrar captura";
+  btnRemoveCapturedImage.innerText = "Borrar captura de rostro";
   btnRemoveCapturedImageIcon.innerText = "cancel";
   btnRemoveCapturedImage.append(btnRemoveCapturedImageIcon);
   btnRemoveCapturedImage.addEventListener("click", removeInputFace);

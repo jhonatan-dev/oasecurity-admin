@@ -9,7 +9,7 @@ const jsonWebTokenConfig = require("../config/jsonWebTokenConfig");
 const cookieOptions = {
   maxAge: 24 * 3600000, //expira en 24 horas
   httpOnly: true,
-  secure: true,
+  secure: process.env.ENTORNO==="produccion" ? true : false,
   signed: true,
 };
 
@@ -225,10 +225,13 @@ usuarioController.registrarUsuarioRenderizado = async (req, res) => {
       scripts: [
         "camera",
         "register_camera_controls",
+        "register_audio_controls",
+        "registeR_audio",
         "register_faceapi",
         "register_form",
       ],
       face_api: true,
+      recorder_js: true,
       registro: true,
       urlAPI: String(require("../config/apisExternasConfig").apiOaSecurityUrl),
     });

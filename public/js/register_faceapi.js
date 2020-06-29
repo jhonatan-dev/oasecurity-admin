@@ -6,6 +6,7 @@ const TINY_FACE_DETECTOR = "tiny_face_detector";
 let selectedFaceDetector = TINY_FACE_DETECTOR;
 let predictedAges = [];
 let withBoxes = true;
+let streamMedia = null;
 
 // ssd_mobilenetv1 options
 let minConfidence = 0.5;
@@ -120,15 +121,6 @@ async function onPlay() {
     if (withBoxes) {
       faceapi.draw.drawDetections(canvas, resizedResult);
     }
-
-    /*
-    faceapi.draw.drawFaceExpressions(
-      canvas,
-      resizedResult,
-      selectedFaceDetector === SSD_MOBILENETV1 ? minConfidence : scoreThreshold
-    );
-    drawAgeAndGender(resizedResult, canvas);
-    */
   } else {
     canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
   }
@@ -167,7 +159,12 @@ async function run() {
 
   // try to access users webcam and stream the images to the video element
   const videoEl = document.getElementById("inputVideo");
-  const stream = await getMediaStreamFromUser();
-  setVideoMediaStream(videoEl, stream);
-  initializeCameraControls();
+  streamMedia = await getMediaStreamFromUser(true);
+  if (streamMedia) {
+    setVideoMediaStream(videoEl, streamMedia);
+    initializeCameraControls();
+    initializeAudioControls();
+  } else {
+    alert("no se pudo obtener los medios del disposito.");
+  }
 }

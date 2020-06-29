@@ -7,21 +7,30 @@
                 <h4 class="truncate bg-card-user">
                     <div class="row register">
                         <h5>Registro</h5>
-                        <form id="formRegistro" class="col m12 s12">
-                            <div class="row">
-                                <div class="progress" id="loader">
-                                    <div class="indeterminate"></div>
-                                </div>
-                                <div id="div_camera">
-                                    <div id="facesContainer" class="row col m12 s12" style="display: none;"></div>
-                                    <video class="responsive-video" onloadedmetadata="onPlay(this)" id="inputVideo"
-                                        autoplay muted playsinline></video>
-                                    <canvas id="overlay" />
-                                </div>
-                                <div id="cameraControls"></div>
+                        <div id="rowCamera" class="row">
+                            <div class="progress" id="loader">
+                                <div class="indeterminate"></div>
                             </div>
-                            <div class="row">
-                                <div class="input-field col m12 s12">
+                            <div id="div_camera">
+                                <div id="facesContainer" class="row col m12 s12" style="display: none;"></div>
+                                <video class="responsive-video" onloadedmetadata="onPlay(this)" id="inputVideo" autoplay
+                                    muted playsinline></video>
+                                <canvas id="overlay" />
+                            </div>
+                            <div id="cameraControls"></div>
+                        </div>
+                        <hr style="margin-bottom: 0px;">
+                        <div id="rowAudio" class="row">
+                            <p>GRABAR LA SIGUIENTE FRASE:</p>
+                            <p><b id="phraseToRecord">Cargando...</b></p>
+                            <small>00:</small><small id="smallSeconds">00</small>
+                            <div id="audioControls"></div>
+                            <div id="recordingContainer" class="row col m12 s12" style="display: none;"></div>
+                        </div>
+                        <hr style="margin-bottom: 0px;">
+                        <form id="formRegistro" class="col m12 s12">
+                            <div class="row" style="margin-top: 0px; padding-top: 0px;">
+                                <div class="input-field col m12 s12" style="margin-top: 0px; padding-top: 0px;">
                                     <input id="dni" name="dni" type="text" class="validate" required autocomplete="off">
                                     <label for="dni">DNI</label>
                                 </div>

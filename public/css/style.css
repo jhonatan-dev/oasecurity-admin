@@ -72,6 +72,12 @@ footer .foot-text {
   height: auto;
 }
 
+#rowCamera,
+#rowAudio {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
 .registro {
   height: auto;
 }
@@ -90,8 +96,15 @@ i.iconis {
 }
 
 @media (min-width: 724px) {
-  #indicacionLoginVoz, #comandosFaciales > p {
+  #indicacionLoginVoz,
+  #comandosFaciales > p {
     font-size: 1.5rem;
+  }
+  #rowAudio > p {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    font-size: 1.5rem;
+    text-align: center;
   }
 }
 
@@ -99,8 +112,14 @@ i.iconis {
   #comandosFaciales > p {
     font-size: 1.3rem;
   }
-  #indicacionLoginVoz{
+  #indicacionLoginVoz {
     font-size: 1.1rem;
+  }
+  #rowAudio > p {
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    font-size: 1.1rem;
+    text-align: center;
   }
 }
 
@@ -141,11 +160,22 @@ a {
 #facesContainer {
   margin: 0 0 0 0;
   padding: 0 0 0 0;
-  position:absolute;
+  position: absolute;
   bottom: 0;
   right: 0;
-  text-align:right;
+  text-align: right;
   width: 25%;
+}
+
+#recordingContainer {
+  margin: 0 0 0 0;
+  padding: 0 0 0 0;
+}
+
+audio {
+  margin-top: 6px;
+  width: 100%;
+  margin-bottom: 0px;
 }
 
 #facesContainer > canvas {
@@ -154,7 +184,8 @@ a {
   border-style: solid;
 }
 
-canvas, video {
+canvas,
+video {
   width: 100%;
   height: 100%;
 }

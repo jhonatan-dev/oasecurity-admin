@@ -1,12 +1,12 @@
 "use strict";
 
-async function getMediaStreamFromUser() {
+async function getMediaStreamFromUser(withAudio = false) {
   try {
     const md = new MobileDetect(window.navigator.userAgent);
     return await navigator.mediaDevices.getUserMedia(
       md.mobile()
         ? {
-            audio: false,
+            audio: withAudio,
             video: {
               width: { min: 640, ideal: 800, max: 1280 },
               height: { min: 480, ideal: 600, max: 720 },
@@ -14,7 +14,7 @@ async function getMediaStreamFromUser() {
             },
           }
         : {
-            audio: false,
+            audio: withAudio,
             video: {
               width: { min: 640, ideal: 800, max: 1280 },
               height: { min: 480, ideal: 600, max: 720 },
