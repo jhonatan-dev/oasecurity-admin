@@ -132,7 +132,7 @@
               method: "POST",
               body: formData,
             }).finally(function () {
-              window.location.href = "/";
+              window.location.href = "/login";
             });
           });
         }

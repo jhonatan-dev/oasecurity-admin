@@ -142,4 +142,23 @@ usuarioService.iniciarSesionVoz = async (profileId, audioFile) => {
   }
 };
 
+usuarioService.entrenarSpeakerRecognition = async (idUsuario) => {
+  try {
+    let response = await axios({
+      method: "PUT",
+      url: `${apiOaSecurityUrl}/usuarios/entrenar`,
+      headers: {
+        appCode: appId,
+        idUsuario,
+      },
+      httpsAgent: new https.Agent({
+        rejectUnauthorized: false,
+      }),
+    });
+    return response.data;
+  } catch (err) {
+    console.error(`Error en usuarioService.entrenarSpeakerRecognition: ${err}`);
+  }
+};
+
 module.exports = usuarioService;

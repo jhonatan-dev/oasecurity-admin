@@ -24,7 +24,7 @@
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
                                 <th>Email</th>
-                                <th>Rol</th>
+                                <th>Estado inscripción audio</th>
                                 <th>Foto</th>
                             </tr>
                         </thead>
@@ -35,7 +35,13 @@
                                 <td>{{nombres}}</td>
                                 <td>{{apellidos}}</td>
                                 <td>{{email}}</td>
-                                <td>{{rol.nombre}}</td>
+                                <td>{{#if entrenado}}
+                                    Entrenado
+                                    {{else}}
+                                    <button class="waves-effect waves-light light-blue btn"
+                                        onclick="enviar({{id}});">Entrenar</button>
+                                    {{/if}}
+                                </td>
                                 <td><img class="circle responsive-img" src="{{url_foto_rostro}}"
                                         alt="Foto de {{nombres}} {{apellidos}}"></td>
                             </tr>

@@ -19,4 +19,8 @@ router.post("/registro", multerConfig, async (req, res) => {
   await usuarioController.registrarUsuario(req, res);
 });
 
+router.get("/entrenar/:idUsuario", async (req, res) => {
+  await usuarioController.entrenarSpeakerRecognition(req, res);
+});
+
 module.exports = router;

@@ -9,7 +9,7 @@ const jsonWebTokenConfig = require("../config/jsonWebTokenConfig");
 const cookieOptions = {
   maxAge: 24 * 3600000, //expira en 24 horas
   httpOnly: true,
-  secure: process.env.ENTORNO==="produccion" ? true : false,
+  secure: process.env.ENTORNO === "produccion" ? true : false,
   signed: true,
 };
 
@@ -184,8 +184,16 @@ usuarioController.listarUsuariosRenderizado = async (req, res) => {
   ) {
     let usuario = jsonWebTokenConfig.verify(token);
     let usuarios = await usuarioService.listarUsuarios();
+    usuarios.forEach((elemento) => {
+      if (elemento.audio_profile_status === "Enrolled") {
+        elemento.entrenado = true;
+      } else {
+        elemento.entrenado = false;
+      }
+    });
     usuario.verificado = true;
     res.render("index", {
+      scripts: ["index_list"],
       tituloVentana: "Inicio",
       usuarios,
       usuario,
@@ -232,7 +240,7 @@ usuarioController.registrarUsuarioRenderizado = async (req, res) => {
       ],
       face_api: true,
       recorder_js: true,
-      registro: true,
+      insertarURLApi: true,
       urlAPI: String(require("../config/apisExternasConfig").apiOaSecurityUrl),
     });
   } else {
@@ -293,6 +301,32 @@ usuarioController.cerrarSesion = async (req, res) => {
     .clearCookie("loginFacialStatus")
     .clearCookie("loginVoiceStatus")
     .redirect("/login");
+};
+
+usuarioController.entrenarSpeakerRecognition = async (req, res) => {
+  const {
+    token,
+    loginStatus,
+    loginFacialStatus,
+    loginVoiceStatus,
+  } = req.signedCookies;
+  if (
+    token &&
+    loginStatus &&
+    loginStatus === tokenLoginSuccess &&
+    ((loginFacialStatus && loginFacialStatus === tokenLoginFacialSuccess) ||
+      (loginVoiceStatus && loginVoiceStatus === tokenLoginVoiceSuccess))
+  ) {
+    await usuarioService.entrenarSpeakerRecognition(req.params.idUsuario);
+    res.redirect("/");
+  } else {
+    res
+      .clearCookie("token")
+      .clearCookie("loginStatus")
+      .clearCookie("loginFacialStatus")
+      .clearCookie("loginVoiceStatus")
+      .redirect("/login");
+  }
 };
 
 module.exports = usuarioController;
