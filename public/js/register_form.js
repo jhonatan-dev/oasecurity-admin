@@ -99,6 +99,7 @@
       submitHandler: function (form) {
         const facesContainer = document.getElementById("facesContainer");
         if (facesContainer.hasChildNodes() && currentAudioBlob != null) {
+          document.getElementById("sendRegister").disabled = true;
           const canvasRostro = facesContainer.firstElementChild;
           new Promise((resolve) =>
             canvasRostro.toBlob(resolve, "image/png")

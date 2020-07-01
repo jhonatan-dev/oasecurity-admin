@@ -2,6 +2,8 @@ let divSendAudio = document.getElementById("divSendAudio");
 let smallSeconds = document.getElementById("smallSeconds");
 
 function enviarAzure(blob) {
+  const btnAnalysisButton = document.getElementById("btnAnalysisButton");
+  btnAnalysisButton.disabled = true;
   let formData = new FormData();
   formData.append("audio_data", blob, `${new Date().toISOString()}.wav`);
   fetch(`/login/voz`, {
@@ -20,6 +22,9 @@ function enviarAzure(blob) {
     })
     .catch((error) => {
       console.error("Error:", error);
+    })
+    .finally(() => {
+      btnAnalysisButton.disabled = false;
     });
 }
 

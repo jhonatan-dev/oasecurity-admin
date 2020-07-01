@@ -18,6 +18,8 @@ function removeAnalysisButton() {
 }
 
 function enviarAzure() {
+  const btnAnalysisButton = document.getElementById("btnAnalysisButton");
+  btnAnalysisButton.disabled = true;
   const facesContainer = document.getElementById("facesContainer");
   if (facesContainer.hasChildNodes()) {
     const canvas = facesContainer.firstElementChild;
@@ -41,6 +43,9 @@ function enviarAzure() {
           })
           .catch((error) => {
             console.error("Error:", error);
+          })
+          .finally(() => {
+            btnAnalysisButton.disabled = false;
           });
       }
     );
