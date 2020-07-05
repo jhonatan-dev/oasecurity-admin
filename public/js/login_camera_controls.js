@@ -59,7 +59,7 @@ function removeInputFace() {
 }
 
 function createAnalysisButton() {
-  const btnAnalysisButton = document.createElement("a");
+  const btnAnalysisButton = document.createElement("button");
   btnAnalysisButton.id = "btnAnalysisButton";
   const btnAnalysisButtonIcon = document.createElement("i");
   const btnAnalysisButtonClasses = [

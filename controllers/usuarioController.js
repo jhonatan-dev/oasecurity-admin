@@ -183,7 +183,14 @@ usuarioController.listarUsuariosRenderizado = async (req, res) => {
       (loginVoiceStatus && loginVoiceStatus === tokenLoginVoiceSuccess))
   ) {
     let usuario = jsonWebTokenConfig.verify(token);
-    let usuarios = await usuarioService.listarUsuarios();
+    let usuarios = [];
+    if (usuario.aplicacion !== null) {
+      usuarios = await usuarioService.listarUsuariosPorIdAplicacion(
+        usuario.aplicacion.id
+      );
+    } else {
+      usuarios = await usuarioService.listarUsuarios();
+    }
     usuarios.forEach((elemento) => {
       if (elemento.audio_profile_status === "Enrolled") {
         elemento.entrenado = true;
@@ -223,26 +230,29 @@ usuarioController.registrarUsuarioRenderizado = async (req, res) => {
       (loginVoiceStatus && loginVoiceStatus === tokenLoginVoiceSuccess))
   ) {
     let usuario = jsonWebTokenConfig.verify(token);
-    if (usuario.rol.nombre !== "Administrador") {
+    if (usuario.rol.nombre === "Administrador" && usuario.aplicacion !== null) {
+      usuario.verificado = true;
+      res.render("register", {
+        tituloVentana: "Registro",
+        usuario,
+        scripts: [
+          "camera",
+          "register_camera_controls",
+          "register_audio_controls",
+          "register_audio",
+          "register_faceapi",
+          "register_form",
+        ],
+        face_api: true,
+        recorder_js: true,
+        insertarURLApi: true,
+        urlAPI: String(
+          require("../config/apisExternasConfig").apiOaSecurityUrl
+        ),
+      });
+    } else {
       return res.redirect("/");
     }
-    usuario.verificado = true;
-    res.render("register", {
-      tituloVentana: "Registro",
-      usuario,
-      scripts: [
-        "camera",
-        "register_camera_controls",
-        "register_audio_controls",
-        "registeR_audio",
-        "register_faceapi",
-        "register_form",
-      ],
-      face_api: true,
-      recorder_js: true,
-      insertarURLApi: true,
-      urlAPI: String(require("../config/apisExternasConfig").apiOaSecurityUrl),
-    });
   } else {
     res
       .clearCookie("token")
@@ -279,6 +289,7 @@ usuarioController.registrarUsuario = async (req, res) => {
         password,
         archivoFotoRostro,
         archivoAudioGrabacion,
+        id_aplicacion: jsonWebTokenConfig.verify(token).aplicacion.id,
       });
       res.status(201).end();
     } catch (err) {

@@ -24,12 +24,14 @@ function enviarAzure(blob) {
       console.error("Error:", error);
     })
     .finally(() => {
-      btnAnalysisButton.disabled = false;
+      removeAnalysisButton();
+      disableRecordButton(false);
     });
 }
 
 function createRecordButton() {
-  const btnRecordButton = document.createElement("a");
+  const btnRecordButton = document.createElement("button");
+  btnRecordButton.style.marginBottom = "6px";
   btnRecordButton.id = "btnRecordButton";
   const btnRecordButtonIcon = document.createElement("i");
   const btnRecordButtonClasses = [
@@ -52,7 +54,7 @@ function createRecordButton() {
 }
 
 function createAnalysisButton() {
-  const btnAnalysisButton = document.createElement("a");
+  const btnAnalysisButton = document.createElement("button");
   btnAnalysisButton.id = "btnAnalysisButton";
   const btnAnalysisButtonIcon = document.createElement("i");
   const btnAnalysisButtonClasses = [
@@ -71,6 +73,13 @@ function createAnalysisButton() {
   btnAnalysisButton.append(btnAnalysisButtonIcon);
   btnAnalysisButton.addEventListener("click", exportRecording);
   return btnAnalysisButton;
+}
+
+function disableRecordButton(value = true) {
+  let btnRecordButton = document.getElementById("btnRecordButton");
+  if (btnRecordButton) {
+    btnRecordButton.disabled = value;
+  }
 }
 
 function removeAnalysisButton() {

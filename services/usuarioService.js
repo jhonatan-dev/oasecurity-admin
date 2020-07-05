@@ -22,6 +22,25 @@ usuarioService.listarUsuarios = async () => {
   }
 };
 
+usuarioService.listarUsuariosPorIdAplicacion = async (id_aplicacion) => {
+  try {
+    let response = await axios.get(
+      `${apiOaSecurityUrl}/usuarios/aplicacion/${id_aplicacion}`,
+      {
+        headers: { appCode: appId },
+        httpsAgent: new https.Agent({
+          rejectUnauthorized: false,
+        }),
+      }
+    );
+    return response.data;
+  } catch (err) {
+    console.error(
+      `Error en usuarioService.listarUsuariosPorIdAplicacion: ${err}`
+    );
+  }
+};
+
 usuarioService.registrarUsuario = async (usuario) => {
   try {
     const formulario = new FormData();
@@ -34,6 +53,7 @@ usuarioService.registrarUsuario = async (usuario) => {
     formulario.append("apellidos", usuario.apellidos);
     formulario.append("email", usuario.email);
     formulario.append("password", usuario.password);
+    formulario.append("id_aplicacion", usuario.id_aplicacion);
     formulario.append("foto_rostro", streamFotoRostro, {
       filename: `${new Date().toISOString()}.png`,
       contentType: usuario.archivoFotoRostro.mimetype,

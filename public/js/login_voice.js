@@ -19,6 +19,10 @@ async function getMediaStreamFromUser() {
 }
 
 async function startRecording() {
+
+  removeAnalysisButton();
+  disableRecordButton(true);
+
   const stream = await getMediaStreamFromUser();
   audioContext = new AudioContext({
     latencyHint: "interactive",
@@ -40,8 +44,6 @@ async function startRecording() {
   setTimeout(() => {
     stopRecording();
   }, (secondsOfAudio + 1) * 1000);
-
-  removeAnalysisButton();
 }
 
 function stopRecording() {

@@ -7,14 +7,18 @@
     <ul class="right hide-on-med-and-down">
       {{#ifeq usuario.rol.nombre '===' 'Administrador'}}
       <li><a href="/">Inicio</a></li>
+      {{#if usuario.aplicacion}}
       <li><a href="/admin/registro">Registro</a></li>
+      {{/if}}
       {{/ifeq}}
       <li><a href="/logout">Cerrar Sesión</a></li>
     </ul>
     <ul class="side-nav" id="mobile-demo">
       {{#ifeq usuario.rol.nombre '===' 'Administrador'}}
       <li><a href="/">Inicio</a></li>
+      {{#if usuario.aplicacion}}
       <li><a href="/admin/registro">Registro</a></li>
+      {{/if}}
       {{/ifeq}}
       <li><a href="/logout">Cerrar Sesión</a></li>
     </ul>

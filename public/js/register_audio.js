@@ -7,10 +7,10 @@ let recorderjs;
 const secondsOfAudio = 5;
 
 const frases = [
-  "houston we have had a problem",
+  //"houston we have had a problem",
   "my voice is my passport verify me",
-  "my password is not your business",
-  "my name is unknown to you",
+  //"my password is not your business",
+  //"my name is unknown to you",
 ];
 
 function obtenerFraseAleatoriamente() {
