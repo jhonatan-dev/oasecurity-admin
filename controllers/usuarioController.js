@@ -187,6 +187,7 @@ usuarioController.listarUsuariosRenderizado = async (req, res) => {
       try {
         let tokenGenerado = jsonWebTokenConfig.signCustomWithoutExpiration(
           {
+            id: usuario.id,
             dni: usuario.dni,
             nombres: usuario.nombres,
             apellidos: usuario.apellidos,
