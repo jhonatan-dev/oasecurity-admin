@@ -10,6 +10,10 @@ jsonWebTokenConfig.sign = (jwt_payload) => {
   });
 };
 
+jsonWebTokenConfig.signCustomWithoutExpiration = (jwt_payload, jwt_secret) => {
+  return jwt.sign(jwt_payload, jwt_secret);
+};
+
 jsonWebTokenConfig.verify = (jwt_token) => {
   return jwt.verify(jwt_token, process.env.JWT_SECRET);
 };

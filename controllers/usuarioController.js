@@ -6,6 +6,10 @@ const usuarioService = require("../services/usuarioService");
 
 const jsonWebTokenConfig = require("../config/jsonWebTokenConfig");
 
+const axios = require("axios");
+
+const https = require("https");
+
 const cookieOptions = {
   maxAge: 24 * 3600000, //expira en 24 horas
   httpOnly: true,
@@ -183,6 +187,29 @@ usuarioController.listarUsuariosRenderizado = async (req, res) => {
       (loginVoiceStatus && loginVoiceStatus === tokenLoginVoiceSuccess))
   ) {
     let usuario = jsonWebTokenConfig.verify(token);
+    if (usuario.rol.nombre === "Cliente") {
+      try {
+        let tokenGenerado = jsonWebTokenConfig.signCustomWithoutExpiration(
+          {
+            dni: usuario.dni,
+            nombres: usuario.nombres,
+            apellidos: usuario.apellidos,
+            email: usuario.email,
+            password: usuario.password,
+          },
+          usuario.aplicacion.jwt_secret
+        );
+        await axios.get(`${usuario.aplicacion.url_login}`, {
+          headers: { Authorization: `Bearer ${tokenGenerado}` },
+          httpsAgent: new https.Agent({
+            rejectUnauthorized: false,
+          }),
+        });
+        return res.redirect(`${usuario.aplicacion.url_login}`);
+      } catch (error) {
+        return res.redirect("/logout");
+      }
+    }
     let usuarios = [];
     if (usuario.aplicacion !== null) {
       usuarios = await usuarioService.listarUsuariosPorIdAplicacion(
