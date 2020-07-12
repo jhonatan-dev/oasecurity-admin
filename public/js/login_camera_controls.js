@@ -76,6 +76,7 @@ function createAnalysisButton() {
   btnAnalysisButton.innerText = "Iniciar Sesión";
   btnAnalysisButtonIcon.innerText = "fingerprint";
   btnAnalysisButton.append(btnAnalysisButtonIcon);
+  btnAnalysisButton.style.marginTop = "4px";
   btnAnalysisButton.addEventListener("click", enviarAzure);
   return btnAnalysisButton;
 }

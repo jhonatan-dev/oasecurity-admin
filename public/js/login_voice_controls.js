@@ -46,7 +46,7 @@ function createRecordButton() {
   const btnRecordButtonIconClasses = ["material-icons", "left"];
   btnRecordButton.classList.add(...btnRecordButtonClasses);
   btnRecordButtonIcon.classList.add(...btnRecordButtonIconClasses);
-  btnRecordButton.innerText = "Empezar grabar";
+  btnRecordButton.innerText = "Iniciar grabación";
   btnRecordButtonIcon.innerText = "record_voice_over";
   btnRecordButton.append(btnRecordButtonIcon);
   btnRecordButton.addEventListener("click", startRecording);
